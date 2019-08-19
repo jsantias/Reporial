@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/AsianJohnBoi/CAB432-Assignment-1#readme",
   "dependencies": {
+    "http-server": "^0.9.0",
     "youtube-comments-task": "^1.3.14"
   },
   "devDependencies": {
