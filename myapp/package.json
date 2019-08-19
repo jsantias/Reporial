@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "Runs sentiment analysis on YouTube video's comments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsianJohnBoi/CAB432-Assignment-1.git"
+  },
+  "author": "John Santias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AsianJohnBoi/CAB432-Assignment-1/issues"
+  },
+  "homepage": "https://github.com/AsianJohnBoi/CAB432-Assignment-1#readme"
+}
