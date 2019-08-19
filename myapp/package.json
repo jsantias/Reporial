@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/AsianJohnBoi/CAB432-Assignment-1/issues"
   },
-  "homepage": "https://github.com/AsianJohnBoi/CAB432-Assignment-1#readme"
+  "homepage": "https://github.com/AsianJohnBoi/CAB432-Assignment-1#readme",
+  "dependencies": {
+    "youtube-comments-task": "^1.3.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
