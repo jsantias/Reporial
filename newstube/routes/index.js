@@ -19,4 +19,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+  let query = req.body.query;
+  if (query === null){
+    res.render('error', {message: "no Query entered"});
+  }
+  console.log(query);
+});
+
 module.exports = router;

@@ -1,6 +1,8 @@
 require('dotenv').config() 
 const NewsAPI = require('newsapi');
 
+const analyse = require('../scripts/processAnalysis');
+
 // News API Key
 const newsapi = new NewsAPI(process.env.NEWS_KEY);
 
@@ -11,7 +13,7 @@ async function getTopArticles() {
 		// Call the News API query for top headlines
 		newsapi.v2.topHeadlines({
 			// Specify the Source
-			sources: 'buzzfeed',
+			sources: 'abc-news',
 			// Request 50 queries
 			pageSize: 50,
 		}).then(response => {
