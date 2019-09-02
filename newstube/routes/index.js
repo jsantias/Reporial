@@ -1,6 +1,5 @@
 const express = require('express');
 const processNews = require('../scripts/processNews');
-
 const processAnalysis = require('../scripts/processAnalysis');
 
 var router = express.Router();
@@ -29,14 +28,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/analyse', function(req, res, next) {
+  var title = "result";
   let query = req.body.query;
   if (query === null){
     res.render('error', {message: "Invalid query"});
   }
-  else {
-    res.render('layout');
-    console.log(query);
-  }
+  processAnalysis.sentimentAnalysis(query).then((response) => {
+    res.render('layout', {title: title});
+    // console.log(response);
+
+  }).catch((err) => {
+    res.render('error', { message: "An Error Occured Extracting Content", error: err });
+  });
+    // // res.render('layout');
+    // // console.log(query);
+    // var result = extractContent.extractArticle(query);
+    // console.log(result);
+  
 });
 
 module.exports = router;
