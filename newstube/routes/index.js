@@ -1,6 +1,8 @@
 const express = require('express');
 const processNews = require('../scripts/processNews');
 
+const processAnalysis = require('../scripts/processAnalysis');
+
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -17,14 +19,24 @@ router.get('/', function(req, res, next) {
   }).catch((err) => {
     res.render('error', { message: "An Error Occured Fetching Articles", error: err });
   });
+  // processAnalysis.sentimentAnalysis().then((response) => {
+  //   res.render('index', {title: title});
+  //   console.log(response);
+
+  // }).catch((err) => {
+  //   res.render('error', { message: "An Error Occured Fetching Articles", error: err });
+  // });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/analyse', function(req, res, next) {
   let query = req.body.query;
   if (query === null){
-    res.render('error', {message: "no Query entered"});
+    res.render('error', {message: "Invalid query"});
   }
-  console.log(query);
+  else {
+    res.render('layout');
+    console.log(query);
+  }
 });
 
 module.exports = router;
