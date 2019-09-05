@@ -1,6 +1,8 @@
 const express = require('express');
 const processNews = require('../scripts/processNews');
 const processAnalysis = require('../scripts/processAnalysis');
+const extractContent = require('../scripts/extractContent');
+
 
 var router = express.Router();
 
@@ -27,14 +29,16 @@ router.get('/', function(req, res, next) {
   // });
 });
 
-router.post('/analyse', function(req, res, next) {
+router.post('/result', function(req, res, next) {
   var title = "result";
   let query = req.body.query;
+  // var content = extractContent.extractNewsContent(query);
+  // console.log(content);
   if (query === null){
     res.render('error', {message: "Invalid query"});
   }
   processAnalysis.sentimentAnalysis(query).then((response) => {
-    res.render('layout', {title: title});
+    res.render('result', {title: title, analyse: response});
     // console.log(response);
 
   }).catch((err) => {

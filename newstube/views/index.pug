@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h3 #{title}
+  .container
+    .row
+      .col.s12.m4.l2
+    //- form(action='/', method='post')
+    //-   .input-field.col.s12
+    //-     input#searchquery.validate(type='text', name='query')
+    //-     label(for='searchquery') Search For Any Subject
+    //-   button.btn.waves-effect.waves-light.right(type='submit', value='Submit')
+    //-     | Search
+  #chart_div.z-depth-1
+  each val in articles
+    .row
+      .col.s12
+        .card
+          .card-image
+            img(src=val.urlToImage style="width: 30%")
+            br
+            span.card-title #{val.title}
+          .card-action
+            form(action='/result', method='post')
+              input(type='submit', name="query" value=val.url)

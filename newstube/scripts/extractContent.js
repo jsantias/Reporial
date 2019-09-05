@@ -7,7 +7,7 @@ const textapi_id = process.env.ANALYSIS_ID;
 
 
 function extractNewsContent(link){
-	// var content;
+	var content;
 	var textapi = new AYLIENTextAPI({
 		application_id: textapi_id,
 		application_key: textapi_key
@@ -15,6 +15,7 @@ function extractNewsContent(link){
 
 	textapi.extract({url: link, best_image: false}, function(error, response) {
 		content = response.article;
+		// console.log(response);
 		return content;
 
 	});
