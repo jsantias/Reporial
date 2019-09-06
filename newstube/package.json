@@ -6,8 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "acorn": "^7.0.0",
     "article-parser": "^2.4.0",
     "aylien_textapi": "^0.7.0",
+    "chart.js": "^2.8.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",

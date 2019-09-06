@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 router.post('/result', function(req, res, next) {
   var title = "result";
   let query = req.body.query;
-  // var content = extractContent.extractNewsContent(query);
+  var content = extractContent.extractNewsContent(query);
   // console.log(content);
   if (query === null){
     res.render('error', {message: "Invalid query"});
