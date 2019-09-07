@@ -7,13 +7,14 @@ const analyse = require('../scripts/processAnalysis');
 const newsapi = new NewsAPI(process.env.NEWS_KEY);
 
 // Retrieves top articles
-async function getTopArticles() {
+async function getTopArticles(query) {
 	// Create a promise
 	return new Promise((resolve, reject) => {
 		// Call the News API query for top headlines
 		newsapi.v2.topHeadlines({
+			q: query,
 			// Specify the Source
-			sources: 'abc-news',
+			// sources: 'abc-news',
 			// Request 50 queries
 			pageSize: 50,
 		}).then(response => {

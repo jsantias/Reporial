@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   let query = req.body.query;
   var title = "Results for '" + query + "'";
-  processNews.getAllArticles(query).then((response) => {
+  processNews.getTopArticles(query).then((response) => {
     res.render('index', {title: title, articles: response.articles});
   }).catch((err) => {
     res.render('error', { message: "An Error Occured Extracting Content", error: err });
