@@ -39,8 +39,6 @@ async function getAllArticles(query) {
 		newsapi.v2.everything({
 			// Pass the query to the paramters of the API
 			q: query,
-			// Specify the source
-			sources: 'buzzfeed',
 			// Better make sure the results are in english
 			language: 'en',
 			// Lets sort by popularity
@@ -48,15 +46,17 @@ async function getAllArticles(query) {
 			// Request 50 queries
 			pageSize: 50,
 		}).then(response => {
+			console.log(response);
 			// Check that the results are all g
 			// First check see's if we get results
 			if (response.totalResults !== 0) {
 				// Shoot the response as the resolve for the promise
+				console.log(response);
 				resolve(response);
 			// This handles what todo if no results are recieved
-			} else if (response.articles.length === 0) {
-				reject("We could not find any articles for: " + query);
-			// This handles any other weird errors that occur by the API.
+			// } else if (response.articles.length === 0) {
+			// 	reject("We could not find any articles for: " + query);
+			// // This handles any other weird errors that occur by the API.
 			} else {
 				reject(response);
 			}
@@ -122,4 +122,4 @@ function buildArticles(response) {
 module.exports.getTopArticles = getTopArticles;
 module.exports.getAllArticles = getAllArticles;
 module.exports.getSourceArticles = getSourceArticles;
-module.exports.getAllArticles = buildArticles;
+module.exports.buildArticles = buildArticles;

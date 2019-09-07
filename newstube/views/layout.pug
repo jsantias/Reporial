@@ -7,4 +7,16 @@ html
     script(src='/javascripts/materialize.min.js')
     script(type='text/javascript', src='https://www.gstatic.com/charts/loader.js')
   body
-    block content
+    .container
+      .row
+        .col.s12.m4.l2
+        .col.s12.m4.l8
+          img(class='responsive-img', src='images/logo.png')
+        .col.s12.m4.l2
+        form(action='/', method='post')
+          .input-field.col.s12
+            input#searchquery.validate(type='text', name='query')
+            label(for='searchquery') Search For Any Subject
+            button.btn.waves-effect.waves-light.right(type='submit', value='Submit')
+              | Search
+        block content
