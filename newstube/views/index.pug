@@ -5,7 +5,7 @@ block content
     .row
       .col.s12.m4.l8
         h3 #{title}
-    each val in data
+    each val in reports
       .row
         .col.s12
           .card
@@ -14,7 +14,40 @@ block content
               br
               span.card-title #{val.title}
             .card-content
+              #article_chart
+              p
+                | #{val.description}
+                br
+                | <div id=#{val.div}>
+                br
+                |
               //- p Source: #{val.source.name}
             .card-action
               a(href=val.url target="_blank") Read Article
-            
+
+  script(type='text/javascript').
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+      let articles = !{JSON.stringify(reports)};
+      let stats = !{JSON.stringify(analytics)};
+      console.log(stats);
+
+      for (let i = 0; i < articles.length; i++){
+        articles.forEach( function (article) {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Tone');
+          data.addColumn('number', 'Score');
+          data.addRow([stats[i].sentiment.document.label, stats[i].sentiment.document.score]);        
+          var options = {title:'Overall Sentiment',
+            width:800,
+            height:300};
+          var chart = new google.visualization.BarChart(document.getElementById(articles[i].div));
+          chart.draw(data, options);
+        });
+      }
+    }
+    
