@@ -5,16 +5,16 @@ block content
     .row
       .col.s12.m4.l8
         h3 #{title}
-    each val in articles
+    each val in data
       .row
         .col.s12
           .card
             .card-image
-              img(src=val.urlToImage)
+              img(src=val.image)
               br
               span.card-title #{val.title}
             .card-content
-              p Source: #{val.source.name}
+              //- p Source: #{val.source.name}
             .card-action
               a(href=val.url target="_blank") Read Article
             
