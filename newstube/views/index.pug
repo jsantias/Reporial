@@ -34,20 +34,38 @@ block content
     function drawChart() {
       let articles = !{JSON.stringify(reports)};
       let stats = !{JSON.stringify(analytics)};
-      console.log(stats);
+      console.log(stats)
+      console.log(stats[0].emotion.document.emotion);
 
       for (let i = 0; i < articles.length; i++){
-        articles.forEach( function (article) {
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Tone');
-          data.addColumn('number', 'Score');
-          data.addRow([stats[i].sentiment.document.label, stats[i].sentiment.document.score]);        
-          var options = {title:'Overall Sentiment',
-            width:800,
-            height:300};
-          var chart = new google.visualization.BarChart(document.getElementById(articles[i].div));
-          chart.draw(data, options);
-        });
+        //- articles.forEach( function (article) {
+        var data = google.visualization.arrayToDataTable([
+          ['Emotion', "Score", { role: 'style' }],
+          ["anger", stats[i].emotion.document.emotion.anger, 'color: #DB4437'],
+          ["disgust", stats[i].emotion.document.emotion.disgust, 'color: #0F9D58'],
+          ["fear", stats[i].emotion.document.emotion.fear, 'color: #343a40'],
+          ["joy", stats[i].emotion.document.emotion.joy, 'color: #ffc107'],
+          ["sadness", stats[i].emotion.document.emotion.sadness, 'color: #4285F4']
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                        { calc: "stringify",
+                          sourceColumn: 1,
+                          type: "string",
+                          role: "annotation" },
+                        2]);     
+        var options = {
+          title:'Emotions',
+          titleTextStyle: {
+            fontSize: 20, 
+            bold: true
+          },
+          width:800,
+          height:300,
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById(articles[i].div));
+        chart.draw(view, options);
       }
     }
     
