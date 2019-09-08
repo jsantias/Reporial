@@ -11,14 +11,12 @@ var nlu = new NaturalLanguageUnderstandingV1({
 });
 
 async function buildAnalytics(articles) {
-	// console.log(articles)
+	// console.log(articles);
 	const articlesPromises = articles.map(async (value) => {
 		//count++;
 		var params = {
 			'url': value.url, // Buffer or String
 			'features': {
-				'concepts': {},
-				'sentiment': {},
 				'emotion': {},
 			}
 		}
@@ -30,10 +28,25 @@ async function buildAnalytics(articles) {
 
 	});
 	let result = await Promise.all(articlesPromises)
-	console.log('before filter', result.length)
-	result = result.filter(r => r);
-	console.log('filtered', result.length)
-	return result;
+	console.log(result);
+	const outcome = [];
+	result.forEach((element) => {
+		if (element == null){
+			outcome.push(
+				{
+					"emotion": {
+						"anger": 0,
+						"disgust": 0,
+						"fear": 0,
+						"joy": 0,
+						"sadness": 0
+					}
+			});
+		} else {
+			outcome.push(element.emotion.document);
+		}
+	});
+	return outcome;
 }
 
 module.exports.buildAnalytics = buildAnalytics;
