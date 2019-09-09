@@ -4,65 +4,30 @@ const {
   const stripHtml = require("string-strip-html");
    
 async function extractNewsContent(articles){
-	return new Promise((resolve, reject) => {
-		const urlArray = [];
-		let finalArray = [];
-		let finalValue = {"content": {}};
-		// console.log(articles);
-		articles.forEach(element => {
-			urlArray.push(element.url);
-		});
-		// console.log(urlArray);
-
-		urlArray.forEach((value) => {
-			finalArray.push(extract(value).then((result) => {
-				finalValue.content = result.content;
-				return finalValue;
-			}));
-		});
-		const resolvedFinal = Promise.all(finalArray);
-		resolve(resolvedFinal);
+	const urlArray = [];
+	articles.forEach(element => {
+		urlArray.push(element.url);
 	});
-	// const urlArray = [];
-	// let finalArray = [];
-	// let finalValue = {"content": {}};
-	// // console.log(articles);
-	// articles.forEach(element => {
-	// 	urlArray.push(element.url);
-	// });
-	// // console.log(urlArray);
+	// console.log(urlArray);
+	
 
-	// urlArray.forEach((value) => {
-	// 	finalArray.push(extract(value).then((result) => {
-	// 		finalValue.content = result.content;
-	// 		return finalValue;
-	// 	}));
-	// });
-	// const resolvedFinal = await Promise.all(finalArray);
-	// return resolvedFinal;
-	// console.log(resolvedFinal);
-	// for (let i = 0; i < finalValue.length; i++){
-	// 	resolvedFinal[i].content = stripHtml(resolvedFinal[i].content);
-	// 	// console.log(resolvedFinal);
-	// }
-	// resolve(resolvedFinal);
-	
-	
-	// for (let i = 0; i < articles.length; i++){
-	// 	let url = articles[i].url;
-   
-	// 	extract(url).then((article) => {
-	// 		var content = stripHtml(article.content);
-	// 		articles[i].content = content;
-	// 		// console.log(stripHtml(content));
-	// 		// return articles[i];
-			
-	// 	}).catch((err) => {
-	// 	  console.log(err);
-	// 	});
-	// }
-	// console.log(articles);
-	// return articles;
+	const articlesPromises = urlArray.map(async (value) => {
+		//count++;
+		
+		try {
+			return await extract(value);
+		} catch(e) {
+			return null;
+		}
+
+	});
+	let result = await Promise.all(articlesPromises);
+	// console.log(result);
+	// console.log('before filter', result.length)
+	// result = result.filter(r => r);
+	// console.log('filtered', result.length)
+	// console.log("result", result);
+	return result;
 }
 
 module.exports.extractNewsContent = extractNewsContent;

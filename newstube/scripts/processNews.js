@@ -13,6 +13,7 @@ async function getTopArticles(query) {
 		// Call the News API query for top headlines
 		newsapi.v2.topHeadlines({
 			q: query,
+			language: 'en',
 			// Specify the Source
 			// sources: 'abc-news',
 			// Request 50 queries
@@ -43,16 +44,16 @@ async function getAllArticles(query) {
 			// Better make sure the results are in english
 			language: 'en',
 			// Lets sort by popularity
-			sortBy: 'popularity',
+			sortBy: 'relevancy',
 			// Request 50 queries
-			pageSize: 50,
+			pageSize: 25,
 		}).then(response => {
-			console.log(response);
+			// console.log(response);
 			// Check that the results are all g
 			// First check see's if we get results
 			if (response.totalResults !== 0) {
 				// Shoot the response as the resolve for the promise
-				console.log(response);
+				// console.log(response);
 				resolve(response);
 			// This handles what todo if no results are recieved
 			// } else if (response.articles.length === 0) {
@@ -105,7 +106,7 @@ function buildArticles(response) {
 			title: response_item.title,
 			// Store the description, do a cheeky little clean to remove some excess
 			//info sometimes placed on the end of the descriptions
-			description: response_item.description.replace('View Entire Post ›', ''),
+			description: response_item.description, //.replace('View Entire Post ›', ''),
 			// Store the article URL
 			url: response_item.url,
 			// Grab the associated image
@@ -113,6 +114,11 @@ function buildArticles(response) {
 			// Create a unique div element to display the chart in
 			div: 'chart' + i,
 		}
+
+		if (article.image == null){
+			article.image = 'https://avante.biz/wp-content/uploads/TV-Backgrounds/TV-Backgrounds-019.jpg';
+		}
+
 		// Stash the object into the array
 		articles[i] = article;
 	}

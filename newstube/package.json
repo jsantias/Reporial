@@ -16,8 +16,11 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "ibm-watson": "^4.4.0",
+    "materialize-css": "^1.0.0-rc.2",
     "morgan": "~1.9.1",
     "newsapi": "^2.4.0",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "string-strip-html": "^4.2.0",
+    "youtube-search": "^1.1.4"
   }
 }

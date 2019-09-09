@@ -28,7 +28,7 @@ async function buildAnalytics(articles) {
 
 	});
 	let result = await Promise.all(articlesPromises)
-	console.log(result);
+	// console.log(result);
 	const outcome = [];
 	result.forEach((element) => {
 		if (element == null){
