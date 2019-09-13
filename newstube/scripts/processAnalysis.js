@@ -1,9 +1,8 @@
 require('dotenv').config();
 
-var NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1.js');
-
 const ibm_key = process.env.IBM_KEY;
 
+var NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1.js');
 var nlu = new NaturalLanguageUnderstandingV1({
 	iam_apikey: ibm_key,
 	version: '2018-04-05',
@@ -11,9 +10,7 @@ var nlu = new NaturalLanguageUnderstandingV1({
 });
 
 async function buildAnalytics(articles) {
-	// console.log(articles);
 	const articlesPromises = articles.map(async (value) => {
-		//count++;
 		var params = {
 			'url': value.url, // Buffer or String
 			'features': {

@@ -5,25 +5,29 @@ block content
     .row
       .col.s12.m4.l8
         h3 #{title}
-    each val in reports
-      .row
-        .col.s12
-          .card
-            .card-image
-              img(src=val.image)
-              br
-              span.card-title #{val.title}
-            .card-content
-              #article_chart
-              p
-                | #{val.description}
+      each val in reports
+        .row
+          .col.s12
+            .card
+              .card-image
+                img(src=val.image)
                 br
-                | <div id=#{val.div}>
+                span.card-title #{val.title}
+              .card-content
+                #article_chart
+                p #{val.source}
                 br
-                |
-              //- p Source: #{val.source.name}
-            .card-action
-              a(href=val.url target="_blank") Read Article
+                p
+                  | #{val.description}
+                  br
+                  |
+                  br
+                  | Published: #{val.date} by #{val.author}
+                  br
+                  | <div id=#{val.div}>
+                  br
+              .card-action
+                a(href=val.url target="_blank") Read Article
 
   script(type='text/javascript').
 
@@ -34,11 +38,9 @@ block content
     function drawChart() {
       let articles = !{JSON.stringify(reports)};
       let stats = !{JSON.stringify(analytics)};
-      console.log(stats);
-      //- console.log(stats[0].emotion.document.emotion);
+      //- console.log(stats);
 
       for (let i = 0; i < articles.length; i++){
-        //- articles.forEach( function (article) {
         var data = google.visualization.arrayToDataTable([
           ['Emotion', "Score", { role: 'style' }],
           ["Anger", stats[i].emotion.anger, 'color: #DB4437'],

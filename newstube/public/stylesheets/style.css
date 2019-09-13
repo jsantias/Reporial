@@ -6,3 +6,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+iframe {
+   position: fixed;
+   bottom: 2%;
+   right: 2%;
+   overflow: hidden;
+}
