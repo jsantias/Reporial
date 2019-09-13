@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col.s12.m4.l8
+        h3 #{title}
+      each val in reports
+        .row
+          .col.s12
+            .card
+              .card-image
+                img(src=val.image)
+                br
+                span.card-title #{val.title}
+              .card-content
+                #article_chart
+                p #{val.source}
+                br
+                p
+                  | #{val.description}
+                  br
+                  |
+                  br
+                  | Published: #{val.date} by #{val.author}
+                  br
+                  | <div id=#{val.div}>
+                  br
+              .card-action
+                a(href=val.url target="_blank") Read Article
+
+  script(type='text/javascript').
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+      let articles = !{JSON.stringify(reports)};
+      let stats = !{JSON.stringify(analytics)};
+      //- console.log(stats);
+
+      for (let i = 0; i < articles.length; i++){
+        var data = google.visualization.arrayToDataTable([
+          ['Emotion', "Score", { role: 'style' }],
+          ["Anger", stats[i].emotion.anger, 'color: #DB4437'],
+          ["Disgust", stats[i].emotion.disgust, 'color: #0F9D58'],
+          ["Fear", stats[i].emotion.fear, 'color: #343a40'],
+          ["Joy", stats[i].emotion.joy, 'color: #ffc107'],
+          ["Sadness", stats[i].emotion.sadness, 'color: #4285F4']
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                        { calc: "stringify",
+                          sourceColumn: 1,
+                          type: "string",
+                          role: "annotation" },
+                        2]);     
+        var options = {
+          title:'Emotions',
+          titleTextStyle: {
+            fontSize: 20, 
+            bold: true
+          },
+          width:800,
+          height:300,
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById(articles[i].div));
+        chart.draw(view, options);
+      }
+    }
+    
