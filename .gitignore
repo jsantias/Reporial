@@ -1,0 +1,8 @@
+# Exclude node modules
+node_modules
+
+# api keys
+.env
+
+# ignore vscode debugger
+.vscode
