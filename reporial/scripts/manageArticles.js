@@ -71,8 +71,10 @@ async function updateArticleContent(articles){
 	const articlesPromises = contentArray.map(async (value) => {
 		
 		try {
+			// return when stripping complete
 			return await stripHtml(value);
 		} catch(e) {
+			// If error, store null
 			return null;
 		}
 

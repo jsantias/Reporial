@@ -17,8 +17,10 @@ async function extractNewsContent(articles){
 	// extracts content from each article
 	const articlesPromises = urlArray.map(async (value) => {		
 		try {
+			// return when extraction complete
 			return await extract(value);
 		} catch(e) {
+			// If error (domain denies extraction), store null
 			return null;
 		}
 
