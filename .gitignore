@@ -6,3 +6,6 @@ node_modules
 
 # ignore vscode debugger
 .vscode
+
+# ignore Dockerfile (contains API keys)
+Dockerfile
