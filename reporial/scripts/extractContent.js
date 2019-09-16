@@ -1,12 +1,20 @@
 const extract = require('article-parser');
-const stripHtml = require("string-strip-html");
-   
+
+/**
+ * Extracts the content for each given article URL.
+ * 
+ * @param {*} articles		An array of objects containing, author, 
+ * 							date published, article content
+ */
 async function extractNewsContent(articles){
 	const urlArray = [];
+
+	// Obtain URL of each article for extraction
 	articles.forEach(element => {
 		urlArray.push(element.url);
 	});	
 
+	// extracts content from each article
 	const articlesPromises = urlArray.map(async (value) => {		
 		try {
 			return await extract(value);
@@ -15,13 +23,11 @@ async function extractNewsContent(articles){
 		}
 
 	});
+
+	// Assign value when all articles have been processed
 	let result = await Promise.all(articlesPromises);
 
-	const outcome = [];
-	result.forEach((element) => {
-		outcome.push(stripHtml(element));
-	});
-	return outcome;
+	return result;
 }
 
 module.exports.extractNewsContent = extractNewsContent;
