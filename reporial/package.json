@@ -17,7 +17,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "morgan": "~1.9.1",
     "newsapi": "^2.4.0",
-    "pug": "2.0.0-beta11",
+    "pug": "2.0.4",
     "string-strip-html": "^4.2.0"
   }
 }
